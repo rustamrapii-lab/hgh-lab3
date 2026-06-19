@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна робота №3</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f5f7fa; 
+            color: #333; 
+            margin: 0; 
+            padding: 30px; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+        }
+        h2 { 
+            color: #2c3e50; 
+            border-bottom: 2px solid #ecf0f1; 
+            padding-bottom: 10px; 
+            margin-top: 30px; 
+        }
+        .grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        .card { 
+            background: #fdfdfd; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 6px; 
+            padding: 20px; 
+        }
+        .card-title { 
+            font-weight: 600; 
+            margin-bottom: 15px; 
+            color: #34495e; 
+        }
+        button { 
+            background-color: #3498db; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 14px; 
+        }
+        button:hover { 
+            background-color: #2980b9; 
+        }
+        #task2-container { 
+            height: 120px; 
+            position: relative; 
+            background: #f8fafc; 
+            border: 1px dashed #cbd5e1; 
+            border-radius: 4px; 
+        }
+       #moving-img { 
+    position: absolute; 
+    width: 60px; 
+    height: 60px; 
+    object-fit: cover; 
+        }
+        #wipe-element { 
+            width: 100%; 
+            height: 60px; 
+            background: #2ecc71; 
+            border-radius: 4px; 
+            margin-bottom: 10px; 
+        }
+        #color-workspace { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        ul { 
+            padding-left: 20px; 
+            margin: 0; 
+        }
+        li { 
+            cursor: pointer; 
+            padding: 4px 0; 
+            color: #2980b9; 
+            text-decoration: underline; 
+        }
+        li:hover { 
+            color: #1a5276; 
+        }
+        #black-square { 
+            width: 70px; 
+            height: 70px; 
+            background-color: black; 
+            border-radius: 4px; 
+        }
+        .output-data { 
+            font-family: monospace; 
+            background: #2c3e50; 
+            color: #1abc9c; 
+            padding: 10px; 
+            border-radius: 4px; 
+            font-size: 15px; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">Лабораторна робота №3</h1>
+
+    <h2>Блок 1</h2>
+    <div class="grid">
+        <div class="card">
+            <div class="card-title">Завдання 1</div>
+            <div id="text-output" style="margin-bottom: 15px;">Початковий текст для зміни розміру</div>
+            <button onclick="showTextWithSize('Текст успішно змінено функцією', '20px')">Змінити розмір</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Завдання 2</div>
+            <div id="task2-container">
+    <img id="moving-img" src="750b04b684875eebe818eec7fb844e59.jpg" alt="moving image">
+</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Завдання 3</div>
+            <p>Тестовий абзац номер один.</p>
+            <p>Тестовий абзац номер два.</p>
+            <button onclick="changeAllParagraphs()">Встановити 15px</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Завдання 4 та 5</div>
+            <div id="clock" class="output-data" style="text-align: center; margin-bottom: 15px; font-weight: bold;">00:00:00</div>
+            <div id="wipe-element"></div>
+            <button onclick="startWiping()">Запустити витирання</button>
+        </div>
+    </div>
+
+    <h2>Блок 2</h2>
+    <div class="grid">
+        <div class="card">
+            <div class="card-title">Завдання 3</div>
+            <div id="color-workspace">
+                <ul>
+                    <li onclick="changeSquareColor('#e74c3c')">Червоний</li>
+                    <li onclick="changeSquareColor('#3498db')">Синій</li>
+                    <li onclick="changeSquareColor('#2ecc71')">Зелений</li>
+                    <li onclick="changeSquareColor('#f1c40f')">Жовтий</li>
+                    <li onclick="changeSquareColor('#9b59b6')">Фіолетовий</li>
+                </ul>
+                <div id="black-square"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Завдання 4</div>
+            <div style="font-size: 14px; line-height: 1.6;">
+                X: <span id="mouse-x">0</span>, Y: <span id="mouse-y">0</span><br>
+                Код клавіші: <strong id="key-code" style="color: #e74c3c;">-</strong>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Завдання 6</div>
+            <div id="rainbow-container" style="font-size: 16px; font-weight: bold; letter-spacing: 0.5px;"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Завдання 7</div>
+            <div style="font-size: 14px; color: #555;">
+                S = 1 000 000 грн | p = 10% | роки = 5
+            </div>
+            <div id="mortgage-result" style="margin-top: 15px; font-weight: bold; color: #2c3e50;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Блок 1 ---
+    function showTextWithSize(text, size) {
+        let elem = document.getElementById('text-output');
+        elem.innerText = text;
+        elem.style.fontSize = size;
+    }
+
+    let img = document.getElementById('moving-img');
+    setInterval(() => {
+        img.style.top = Math.floor(Math.random() * 75) + 'px';
+        img.style.left = Math.floor(Math.random() * 80) + '%';
+    }, 1000);
+
+    function changeAllParagraphs() {
+        let paragraphs = document.getElementsByTagName('p');
+        for (let i = 0; i < paragraphs.length; i++) {
+            paragraphs[i].setAttribute('style', 'font-size: 15px;');
+        }
+    }
+
+    setInterval(() => {
+        document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+    }, 1000);
+
+    function startWiping() {
+        let element = document.getElementById('wipe-element');
+        let opacity = 1.0;
+        let timer = setInterval(() => {
+            opacity -= 0.1;
+            element.style.opacity = opacity;
+            if (opacity <= 0) {
+                clearInterval(timer);
+                element.style.display = 'none';
+            }
+        }, 100);
+    }
+
+    // --- Блок 2 ---
+    function changeSquareColor(color) {
+        document.getElementById('black-square').style.backgroundColor = color;
+    }
+
+    document.addEventListener('mousemove', (event) => {
+        document.getElementById('mouse-x').innerText = event.clientX;
+        document.getElementById('mouse-y').innerText = event.clientY;
+    });
+
+    document.addEventListener('keydown', (event) => {
+        document.getElementById('key-code').innerText = event.keyCode;
+    });
+
+    const phrase = "Динамічний HTML та JavaScript";
+    const colors = ['#e74c3c', '#e67e22', '#2ecc71', '#3498db', '#9b59b6'];
+    let rainbowHtml = "";
+    
+    for (let i = 0; i < phrase.length; i++) {
+        if (phrase[i] === " ") {
+            rainbowHtml += " ";
+        } else {
+            rainbowHtml += `<span style="color: ${colors[i % colors.length]};">${phrase[i]}</span>`;
+        }
+    }
+    document.getElementById('rainbow-container').innerHTML = rainbowHtml;
+
+    let S = 1000000;
+    let p = 10;
+    let years = 5;
+    let perepl = S * (p / 100) * years;
+    document.getElementById('mortgage-result').innerText = `Розрахована переплата: ${perepl.toLocaleString()} грн`;
+</script>
+
+</body>
+</html>
